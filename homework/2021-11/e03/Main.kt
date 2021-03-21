@@ -12,7 +12,17 @@ open class Person (var name: String) {
     }
 }
 
-class Programmer(name : String, var salary : Int) : Person(name) {
+class Programmer(name : String, salary : Int) : Person(name) {
+    var salary = 1
+        get() = field
+        set(value) {
+            if (value > 0) field = value else throw IllegalArgumentException("salary must be > 0.")
+        }
+
+    init {
+        this.salary = salary
+    }
+
     override fun drink() {
         println("$name drinks energy drink")
     }
@@ -26,23 +36,7 @@ class Programmer(name : String, var salary : Int) : Person(name) {
     }
 }
 
-
 fun main() {
     val tina = Programmer("tina", 4000)
-    // outputs "tina drinks energy drink"
-    tina.drink()
-    // "tina sleeps"
-    tina.sleep()
-    // "tina code apps"
-    tina.codeApps()
-    // "name = tina, salary = 4000"
-    println(tina.toString())
-
-    val jack = Person("jack")
-    // "jack drinks water"
-    jack.drink()
-    // "jack sleeps"
-    jack.sleep()
-    // "name = jack"
-    println(jack.toString())
+    tina.salary = -2
 }
